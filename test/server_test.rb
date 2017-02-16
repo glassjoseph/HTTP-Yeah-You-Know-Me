@@ -1,14 +1,12 @@
 require "minitest/autorun"
 require "minitest/pride"
 require "./lib/server"
-require "faraday"
-# require "./lib/game"
+# require "faraday"
 
 
 class ServerTest < Minitest::Test
   def setup
     @server = Server.new
-    # @server.start
     # @server.start
     @request_lines = 	["GET /word_search?word=zebra HTTP/1.1",
 	 "Host: 127.0.0.1:9292",
@@ -19,23 +17,36 @@ class ServerTest < Minitest::Test
 	 "Accept: */*",
 	 "Accept-Encoding: gzip, deflate, sdch, br",
    "Accept-Language: en-US,en;q=0.8"]
-  #  binding.pry
+  #  
   # @ip = Faraday.new 'http://127.0.0.1:9292/'
 
   end
+  
+  # binding.pry
+  
   def test_server_exists
     assert_instance_of Server, @server
   end
 
   # def test_server_receives_lines
-  #   @server.start
-  #    assert "server", @server
+  #   # @server.start
+  #   @ip.get 
+  #   binding.pry
+
+  #     assert "server", @server
   # end
 
 
-  def test_say_hello_increments
+  def test_say_hello_says_hello
     # request = @ip.get "/hello"
-    # binding.pry
+    hello =  @server.say_hello
+    assert_equal "Hello World (1)", hello
+
+  end
+
+  def test_say_hello_increments
+    hello = 4.times {@server.say_hello}
+    assert_equal 4, hello
   end
 
   def test_server_requests_initialze_at_zero
@@ -46,8 +57,10 @@ class ServerTest < Minitest::Test
 
   def test_server_increments_requests
      @server.respond
+     @server.respond
+     @server.respond          
      requests = @server.requests
-     refute_equal "0", requests
+     assert_equal 3, requests
   end
 
   def test_extract_requests
@@ -88,6 +101,20 @@ class ServerTest < Minitest::Test
 
     assert_equal "Guesses: 0\n<br>Last guess: No guess made\n<br>Answer is not compared to your guess.", info
   end
+
+  #  def test_game_info_increments
+  #   @server.path = "/start_game"
+  #   @server.verb = "POST"
+  #   @server.respond
+    
+
+  #   @server.
+  #   @server.path = "/game"
+  #   @server.verb = "GET"
+  #   info = @server.respond
+
+  #   assert_equal "Guesses: 1\n<br>Last guess: No guess made\n<br>Answer is not compared to your guess.", info
+  # end
 
 
 end

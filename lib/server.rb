@@ -8,6 +8,7 @@ require './lib/extract'
 
 class Server 
   attr_reader :counter, :requests, :quit, :game, :content_length, :client 
+
   attr_accessor :path, :word, :verb
 
   def initialize
@@ -28,12 +29,12 @@ class Server
 
       extracted = extract_request(request_lines)
 
-      read_body
+      read_guess
       output(extracted)
     end
   end
 
-  def read_body
+  def read_guess
     if path == "/game" && verb == "POST"
       guessed_number = client.read(content_length)
       guessed_number = guessed_number.split("=")[1].to_i
@@ -117,20 +118,9 @@ class Server
 
 end
 
-# server = Server.new
-# server.start
+server = Server.new
+server.start
 # binding.pry
 
-# server.check_word
+
 ""
-
-  # def find_content_length
-  #   content_length = request_lines.find{|line| line.start_with?("Content-Length:")}
-  # end
-
-
-    # origin = request_lines.find{|line| line.start_with?("Origin:")}
-
-  # def new_game
-  #   game = Game.new
-  # end

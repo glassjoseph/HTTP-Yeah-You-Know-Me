@@ -22,15 +22,17 @@ class Path
     elsif path == "/shutdown"
       @quit = true
       "Total Requests #{requests}"
-  #   elsif path.start_with?("/word_search")
-  #     check_word
-  #  elsif path == "/start_game" && verb == "POST"
-  #     @game = Game.new
-  #     "Good Luck!"
+    elsif path.start_with?("/word_search")
+      check_word
+   elsif path == "/start_game" && verb == "POST"
+      @game = Game.new
+      "Good Luck!"
    elsif verb == "GET" && path == "/game"
      answer = @game.info
     end
   end
+
+
 
     def read_body
       if path == "/game" && verb == "POST"
