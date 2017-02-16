@@ -1,6 +1,7 @@
 require "minitest/autorun"
 require "minitest/pride"
 require "./lib/server"
+require "faraday"
 # require "./lib/game"
 
 
@@ -38,11 +39,11 @@ class ServerTest < Minitest::Test
   end
 
   def test_check_word
-    # binding.pry
     @server.path = "/word_search?word=hydrencephalocele"
     a_word = @server.check_word
     @server.path = "/word_search?word=freedo"
     not_a_word = @server.check_word
+
     assert_equal "hydrencephalocele is a known word", a_word
     assert_equal "freedo is not a known word", not_a_word
   end

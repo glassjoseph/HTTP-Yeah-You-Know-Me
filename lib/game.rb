@@ -7,14 +7,11 @@ class Game
   attr_reader :answer
   attr_accessor :guesses, :last_guess
 
-
   def initialize
     @answer = (rand(100)+1)
     @guesses = 0
     @last_guess = "No guess made"
   end
-
-
 
   def guess(guessed_number)
     @guesses += 1 
@@ -36,7 +33,6 @@ class Game
       elsif last_guess < answer
         "higher than"
       end
-
   end
 
   # binding.pry
