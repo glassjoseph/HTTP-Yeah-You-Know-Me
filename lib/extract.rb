@@ -10,6 +10,7 @@ attr_reader :request_lines
     second_line = request_lines[1].split(":")
     got_verb = verb
     got_path = path
+    # binding.pry
     protocol = first_line[2]
     host = second_line[1]
     port = second_line[2]
@@ -22,7 +23,14 @@ attr_reader :request_lines
   end
 
   def path 
-    request_lines.first.split(" ")[1]
+    request_lines.first.split(" ")[1].split("?")[0]
+    
+  end
+
+  def word
+    parameters = request_lines.first.split(" ")[1]
+    word = parameters.split("?")[1].split("=")[1]
+    # binding.pry
   end
 
   def content_length
